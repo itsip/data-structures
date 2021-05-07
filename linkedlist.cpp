@@ -65,6 +65,19 @@ class LinkedList {
         }
 
         void insertAfter(T value, int index) {
+            Node<T> *head = _head;
+
+            for (int i = 0; i != index; i++) {
+                head = head->getNext();
+            }
+
+            if (head->getNext()) {
+                Node<T> *newNode = new Node<T>(value);
+                newNode->setNext(head->getNext());
+                head->setNext(newNode);
+            } else {
+                head->setNext(new Node<T>(value));
+            }
         }
 
         void append(T value) {
@@ -98,6 +111,6 @@ int main() {
     linkedList.append(3);
     linkedList.append(6);
     linkedList.prepend(7);
+    linkedList.insertAfter(5, 1);
     linkedList.print();
-    std::cout << linkedList.get(0) << std::endl;
 }
