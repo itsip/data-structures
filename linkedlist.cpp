@@ -20,7 +20,6 @@ class Node {
         }
 
         T getData() {
-            std::cout << _data << std::endl;
             return _data;
         }
 };
@@ -29,34 +28,48 @@ template <class T>
 class LinkedList {
     private:
         Node<T> *_head;
+
     public:
         LinkedList<T>() : _head(NULL) {}
 
-        Node<T> get(int index) {
-            Node<T> head = _head;
-            for (int i = 0; i < index; i++) {
-                if (i == index) {
-                    return head;
+        ~LinkedList<T>() {
+            Node<T> *head = _head;
+
+            if (!head->getNext()) {
+                delete head;
+            } else {
+                while (head->getNext()) {
+                    Node<T> *last = head;
+                    head = head->getNext();
+                    delete last;
                 }
 
-                head = head->getNext();
+                delete head;
             }
         }
 
+        T get(int index) {
+            Node<T> *head = _head;
+
+            for (int i = 0; i != index; i++) {
+                head = head->getNext();
+            }
+
+            return head->getData();
+        }
+
         void prepend(T value) {
-            Node<T> *newNode = Node<T>(value);
+            Node<T> *newNode = new Node<T>(value);
             newNode->setNext(_head);
             _head = newNode;
         }
 
-        void insert(T value, int index) {
+        void insertAfter(T value, int index) {
         }
 
         void append(T value) {
             if (!_head) {
-                Node<T> head = Node<T>(value);
-                _head = &head;
-                std::cout << _head->getData() << std::endl;
+                _head = new Node<T>(value);
             } else {
                 Node<T> *head = _head;
 
@@ -64,25 +77,27 @@ class LinkedList {
                     head = head->getNext();
                 }
 
-                Node<T> newNode = Node<T>(value);
-                head->setNext(&newNode);
+                head->setNext(new Node<T>(value));
             }
         }
 
         void print() {
-            //Node<T> *head = _head;
+            Node<T> *head = _head;
 
             std::cout << _head->getData() << std::endl;
 
-/*            while (head->getNext()) {*/
-                //head = head->getNext();
-                //std::cout << head->getData() << std::endl;
-            /*}*/
+            while (head->getNext()) {
+                head = head->getNext();
+                std::cout << head->getData() << std::endl;
+            }
         }
 };
 
 int main() {
     LinkedList<int> linkedList;
     linkedList.append(3);
+    linkedList.append(6);
+    linkedList.prepend(7);
     linkedList.print();
+    std::cout << linkedList.get(0) << std::endl;
 }
