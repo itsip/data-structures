@@ -38,9 +38,13 @@ class LinkedList {
         }
 
         void prepend(T value) {
-            Node<T> *newNode = new Node<T>(value);
-            newNode->setNext(_head);
-            _head = newNode;
+            if (!_head) {
+                _head = new Node<T>(value);
+            } else {
+                Node<T> *newNode = new Node<T>(value);
+                newNode->setNext(_head);
+                _head = newNode;
+            }
         }
 
         void insertAfter(T value, int index) {
@@ -71,6 +75,28 @@ class LinkedList {
 
                 head->setNext(new Node<T>(value));
             }
+        }
+
+        void remove(int index) {
+            Node<T> *pre = nullptr;
+            Node<T> *head = _head;
+            Node<T> *post = nullptr;
+
+            for (int i = 0; i != index; i++) {
+                pre = head;
+                head = head->getNext();
+                post = head->getNext();
+            }
+
+            if (post) {
+                pre->setNext(post);
+            } else if (!pre && !post) {
+                _head = head->getNext();
+            } else if (pre && !post) {
+                pre->setNext(nullptr);
+            }
+
+            delete head;
         }
 
         void print() {

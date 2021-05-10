@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Array.hpp"
 #include "LinkedList.hpp"
+#include "Stack.hpp"
 
 int main() {
     Array<int> arr = Array<int>(4);
@@ -15,4 +16,17 @@ int main() {
     linkedList.prepend(7);
     linkedList.insertAfter(5, 1);
     linkedList.print();
+    printf("\n");
+
+    linkedList.remove(0);
+    linkedList.print();
+
+    printf("\n");
+
+    Stack<int> myStack;
+    myStack.push(9);
+    myStack.push(7);
+    myStack.push(5);
+    myStack.pop();
+    myStack.print();
 }
