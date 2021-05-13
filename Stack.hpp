@@ -12,12 +12,14 @@ class Stack {
             _stackList.prepend(value);
         }
 
-        void pop() {
+        T pop() {
+            T value = peek();
             _stackList.remove(0);
+            return value;
         }
 
         T peek() {
-            _stackList.get(0);
+            return _stackList.get(0);
         }
 
         void print() {

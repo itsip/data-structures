@@ -3,14 +3,12 @@
 
 template <class T>
 class Node {
-    private:
+    protected:
         T _data;
         Node *_next;
 
     public:
-        Node(T data) : _next(nullptr) {
-            _data = data;
-        }
+        Node(T data) : _next(nullptr), _data(data) {}
 
         void setNext(Node *next) {
             _next = next;
