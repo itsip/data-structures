@@ -7,21 +7,16 @@ template <class T>
 class LinkedList {
     private:
         Node<T> *_head;
-        Node<T> *_last;
 
     public:
         LinkedList() : _head(nullptr) {}
 
         ~LinkedList() {
-            Node<T> *curr = _head;
+            if (_head) {
+                Node<T> *curr = _head;
 
-            if (!curr->getNext()) {
-                delete curr;
-            } else {
                 while (curr->getNext()) {
-                    Node<T> *last = curr;
                     curr = curr->getNext();
-                    delete last;
                 }
 
                 delete curr;
@@ -41,7 +36,6 @@ class LinkedList {
         void prepend(T value) {
             if (!_head) {
                 _head = new Node<T>(value);
-                _last = _head;
             } else {
                 Node<T> *newNode = new Node<T>(value);
                 newNode->setNext(_head);
@@ -52,26 +46,20 @@ class LinkedList {
         void insertAfter(T value, int index) {
             Node<T> *curr = _head;
 
-            for (int i = 0; i != index; i++) {
+            for (int i = 0; i != index; i++)
                 curr = curr->getNext();
-            }
 
-            if (curr->getNext()) {
-                Node<T> *newNode = new Node<T>(value);
+            Node<T> *newNode = new Node<T>(value);
+
+            if (curr->getNext())
                 newNode->setNext(curr->getNext());
-                curr->setNext(newNode);
-            } else {
-                Node<T> *newNode = new Node<T>(value);
-                newNode->setPrev(curr);
-                _last = newNode;
-                curr->setNext(newNode);
-            }
+
+            curr->setNext(newNode);
         }
 
         void append(T value) {
             if (!_head) {
                 _head = new Node<T>(value);
-                _last = _head;
             } else {
                 Node<T> *curr = _head;
 
@@ -80,8 +68,6 @@ class LinkedList {
                 }
 
                 Node<T> *newNode = new Node<T>(value);
-                newNode->setPrev(curr);
-                _last = newNode;
                 curr->setNext(newNode);
             }
         }
@@ -103,23 +89,9 @@ class LinkedList {
                 _head = curr->getNext();
             } else if (prev && !post) {
                 prev->setNext(nullptr);
-                _last = prev;
             }
 
             delete curr;
-        }
-
-        T getLast() {
-            return _last->getData();
-        }
-
-        void removeLast() {
-            Node<T> *prev = _last->getPrev();
-            Node<T> *tempLast = _last;
-            prev->setNext(nullptr);
-            _last = prev;
-
-            delete tempLast;
         }
 
         void print() {

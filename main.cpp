@@ -2,7 +2,9 @@
 #include <iostream>
 #include "Array.hpp"
 #include "LinkedList.hpp"
+#include "DoublyLinkedList.hpp"
 #include "Stack.hpp"
+#include "Queue.hpp"
 
 int main() {
     printf("Array: \n");
@@ -22,11 +24,21 @@ int main() {
     linkedList.print();
     printf("\n");
 
-    std::cout << linkedList.getLast() << std::endl;
+
+    printf("Doubly Linked List: \n");
+    DoublyLinkedList<int> doublyLinkedList;
+    doublyLinkedList.append(3);
+    doublyLinkedList.append(6);
+    doublyLinkedList.prepend(7);
+    doublyLinkedList.insertAfter(5, 1);
+    doublyLinkedList.print();
+
+    printf("\n");
+    std::cout << doublyLinkedList.getLast() << std::endl;
     printf("\n");
 
-    linkedList.removeLast();
-    linkedList.print();
+    doublyLinkedList.removeLast();
+    doublyLinkedList.print();
 
     printf("\n");
 
@@ -37,4 +49,21 @@ int main() {
     myStack.push(5);
     myStack.pop();
     myStack.print();
+
+    printf("\n");
+
+    printf("Queue: \n");
+    Queue<int> myQueue;
+    myQueue.enqueue(9);
+    myQueue.enqueue(7);
+    myQueue.enqueue(5);
+    myQueue.print();
+
+    printf("\n");
+    std::cout << myQueue.front() << std::endl;
+    myQueue.dequeue();
+
+    printf("\n");
+
+    myQueue.print();
 }
