@@ -3,7 +3,7 @@
 
 template <class T>
 class DoubleNode {
-    private:
+    protected:
         DoubleNode *_prev;
         T _data;
         DoubleNode *_next;
