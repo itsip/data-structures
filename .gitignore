@@ -3,3 +3,5 @@
 !*.hpp
 !Makefile
 !.gitignore
+!*.md
+!LICENSE
